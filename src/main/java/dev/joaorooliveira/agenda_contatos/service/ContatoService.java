@@ -1,5 +1,6 @@
 package dev.joaorooliveira.agenda_contatos.service;
 
+import dev.joaorooliveira.agenda_contatos.dto.ContatoAtualizarDTO;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoRequestDTO;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoResponseDTO;
 import dev.joaorooliveira.agenda_contatos.repository.ContatoRepository;
@@ -18,9 +19,9 @@ public class ContatoService {
     }
 
     @Transactional
-    public void salvarContato(ContatoRequestDTO contatoRequestDTO) {
+    public ContatoResponseDTO salvarContato(ContatoRequestDTO contatoRequestDTO) {
         var contato = contatoRequestDTO.toEntity();
-        contatoRepository.save(contato);
+        return ContatoResponseDTO.fromEntity(contatoRepository.save(contato));
     }
 
     public Page<ContatoResponseDTO> listarContatos(Pageable pageable) {
@@ -40,9 +41,14 @@ public class ContatoService {
         contatoRepository.delete(contato);
     }
 
+    @Transactional
+    public void atualizarContato(Long id, ContatoAtualizarDTO dto) {
 
+        var contato = contatoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Contato não encontrado"));
 
+        dto.preencher(contato);
 
-
-
+        contatoRepository.save(contato);
+    }
 }
