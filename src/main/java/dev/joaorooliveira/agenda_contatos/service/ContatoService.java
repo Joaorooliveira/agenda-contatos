@@ -27,10 +27,17 @@ public class ContatoService {
         return contatoRepository.findAll(pageable).map(ContatoResponseDTO::fromEntity);
     }
 
-    public ContatoResponseDTO listarContato(Long id) {
+    public ContatoResponseDTO listarContatoPorId(Long id) {
         var contato = contatoRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Contato não encontrado"));
         return ContatoResponseDTO.fromEntity(contato);
+    }
+
+    @Transactional
+    public void excluirContatoPorId(Long id) {
+        var contato = contatoRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Contato não encontrado"));
+        contatoRepository.delete(contato);
     }
 
 
