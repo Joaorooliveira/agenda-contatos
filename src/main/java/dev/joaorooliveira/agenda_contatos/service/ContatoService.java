@@ -1,6 +1,7 @@
 package dev.joaorooliveira.agenda_contatos.service;
 
 import dev.joaorooliveira.agenda_contatos.dto.ContatoRequestDTO;
+import dev.joaorooliveira.agenda_contatos.dto.ContatoResponseDTO;
 import dev.joaorooliveira.agenda_contatos.repository.ContatoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,15 @@ public class ContatoService {
         contatoRepository.save(contato);
     }
 
+//    public Page<ContatoResponseDTO> listarContatos(Pageable pageable) {
+//
+//    }
 
+    public ContatoResponseDTO listarContato(Long id) {
+        var contato = contatoRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Contato não encontrado"));
+        return ContatoResponseDTO.fromEntity(contato);
+    }
 
 
 
