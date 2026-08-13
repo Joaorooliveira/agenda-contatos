@@ -2,13 +2,16 @@ package dev.joaorooliveira.agenda_contatos.dto;
 
 import dev.joaorooliveira.agenda_contatos.domain.Contato;
 
+import java.time.LocalDateTime;
+
 public record ContatoResponseDTO(
         Long id,
         String nome,
         String email,
         String telefone,
         String observacoes,
-        boolean favorito
+        boolean favorito,
+        LocalDateTime criado_em
 ) {
     public static ContatoResponseDTO fromEntity(Contato contato) {
         return new ContatoResponseDTO(
@@ -17,7 +20,8 @@ public record ContatoResponseDTO(
                 contato.getEmail(),
                 contato.getTelefone(),
                 contato.getObservacoes(),
-                contato.isFavorito()
+                contato.isFavorito(),
+                contato.getCriadoEm()
         );
     }
 }
