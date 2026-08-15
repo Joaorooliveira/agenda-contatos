@@ -20,7 +20,7 @@ public record ContatoAtualizarDTO(
 
         String observacoes,
 
-        boolean favorito
+        Boolean favorito
 ) {
 
     public Contato toEntity() {
@@ -30,11 +30,26 @@ public record ContatoAtualizarDTO(
     }
 
     public void preencher(Contato contato) {
-        contato.setNome(nome);
-        contato.setEmail(email);
-        contato.setTelefone(telefone);
-        contato.setObservacoes(observacoes);
-        contato.setFavorito(favorito);
+
+        if (nome != null) {
+            contato.setNome(nome);
+        }
+
+        if (email != null) {
+            contato.setEmail(email);
+        }
+
+        if (telefone != null) {
+            contato.setTelefone(telefone);
+        }
+
+        if (observacoes != null) {
+            contato.setObservacoes(observacoes);
+        }
+
+        if (favorito != null) {
+            contato.setFavorito(favorito);
+        }
     }
 
 
