@@ -1,10 +1,10 @@
 package dev.joaorooliveira.agenda_contatos.dto;
 
-public record AlunoFiltroRequest(
+public record ContatoFiltroRequest(
         String nome,
         String email,
         String telefone,
         String observacoes,
-        String favorito
+        Boolean favorito
 ) {
 }

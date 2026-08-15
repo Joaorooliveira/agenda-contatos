@@ -1,9 +1,12 @@
 package dev.joaorooliveira.agenda_contatos.service;
 
+import dev.joaorooliveira.agenda_contatos.domain.Contato;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoAtualizarDTO;
+import dev.joaorooliveira.agenda_contatos.dto.ContatoFiltroRequest;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoRequestDTO;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoResponseDTO;
 import dev.joaorooliveira.agenda_contatos.repository.ContatoRepository;
+import dev.joaorooliveira.agenda_contatos.specification.ContatoSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,8 +27,8 @@ public class ContatoService {
         return ContatoResponseDTO.fromEntity(contatoRepository.save(contato));
     }
 
-    public Page<ContatoResponseDTO> listarContatos(Pageable pageable) {
-        return contatoRepository.findAll(pageable).map(ContatoResponseDTO::fromEntity);
+    public Page<ContatoResponseDTO> listarContatos(ContatoFiltroRequest filtro, Pageable pageable) {
+        return contatoRepository.findAll(ContatoSpecification.comFiltros(filtro), pageable).map(ContatoResponseDTO::fromEntity);
     }
 
     public ContatoResponseDTO listarContatoPorId(Long id) {
