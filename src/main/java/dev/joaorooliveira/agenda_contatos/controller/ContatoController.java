@@ -1,6 +1,7 @@
 package dev.joaorooliveira.agenda_contatos.controller;
 
 import dev.joaorooliveira.agenda_contatos.dto.ContatoAtualizarDTO;
+import dev.joaorooliveira.agenda_contatos.dto.ContatoFiltroRequest;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoRequestDTO;
 import dev.joaorooliveira.agenda_contatos.dto.ContatoResponseDTO;
 import dev.joaorooliveira.agenda_contatos.service.ContatoService;
@@ -41,10 +42,11 @@ public class ContatoController {
 
     @GetMapping
     public ResponseEntity<Page<ContatoResponseDTO>> listar(
+            ContatoFiltroRequest filtro,
             @PageableDefault(size = 10, sort = "nome") Pageable pageable) {
 
         return ResponseEntity.ok(
-                contatoService.listarContatos(pageable)
+                contatoService.listarContatos(filtro,pageable)
         );
     }
 
